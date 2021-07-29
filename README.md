@@ -13,7 +13,6 @@ Naver Maps API SDK for Kotlin/JVM
     - Reverse Geocoding
     - https://www.ncloud.com/product/applicationService/maps
   - Add exception classes
-  - Add NaverMapsServiceTest
 - Build environment
   - Add GitHub Action for CI/CD
   - Test Coverage with Jacoco
@@ -24,4 +23,6 @@ Naver Maps API SDK for Kotlin/JVM
 - Logging : [Logback](https://github.com/qos-ch/logback)
 - HTTP Client : [ktor](https://ktor.io/)
 - JSON (De)Serialization : [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
-- Test Framework : [kotest](https://kotest.io/)
+- Test Framework
+  - [kotest](https://kotest.io/)
+  - [Mockito-Kotlin](https://github.com/mockito/mockito-kotlin)

@@ -28,6 +28,7 @@ subprojects {
         implementation(kotlin("stdlib"))
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.17.1")
         testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+        testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
     }
 
     tasks {
