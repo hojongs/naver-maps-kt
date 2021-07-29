@@ -12,11 +12,10 @@ Naver Maps API SDK for Kotlin/JVM
     - Directions
     - Reverse Geocoding
     - https://www.ncloud.com/product/applicationService/maps
-  - Add exceptions
+  - Add exception classes
   - Add NaverMapsServiceTest
 - Build environment
-  - Add ktlint-gradle-plugin
-  - Add Github Action for CI/CD
+  - Add GitHub Action for CI/CD
   - Test Coverage with Jacoco
   - Refactoring Gradle build script
 
