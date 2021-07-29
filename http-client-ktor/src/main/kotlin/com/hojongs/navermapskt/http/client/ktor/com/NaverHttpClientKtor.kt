@@ -1,6 +1,7 @@
 package com.hojongs.navermapskt.http.client.ktor.com
 
 import com.hojongs.navermapskt.Geocode
+import com.hojongs.navermapskt.GeocodeRequest
 import com.hojongs.navermapskt.http.NaverHttpClient
 import com.hojongs.navermapskt.NaverClientConfig
 import io.ktor.client.*
@@ -16,44 +17,49 @@ class NaverHttpClientKtor(
     override val naverClientConfig: NaverClientConfig,
 ) : NaverHttpClient() {
     //    private val ktorClient = HttpClient(CIO)
-    private val ktorClient = HttpClient() {
-        install(Logging) {
-            logger = Logger.DEFAULT
-            level = LogLevel.ALL
+    private val ktorClient =
+        HttpClient() {
+            install(Logging) {
+                logger = Logger.DEFAULT
+                level = LogLevel.ALL
+            }
+            install(JsonFeature) {
+                serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+                    prettyPrint = true
+                })
+            }
+            defaultRequest {
+                header("X-NCP-APIGW-API-KEY-ID", naverClientConfig.clientId)
+                header("X-NCP-APIGW-API-KEY", naverClientConfig.clientSecret)
+            }
         }
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                prettyPrint = true
-            })
-        }
-        defaultRequest {
-            header("X-NCP-APIGW-API-KEY-ID", naverClientConfig.clientId)
-            header("X-NCP-APIGW-API-KEY", naverClientConfig.clientSecret)
-        }
-    }
 
-    override suspend fun geocode(
-        query: String,
-        coordinate: String?,
-        filter: String?,
-        page: Long?,
-        count: Long?
-    ): Geocode =
-        ktorClient.use {
-            it.request {
+    override suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode =
+        ktorClient.use { client ->
+            client.request {
                 method = HttpMethod.Get
                 url {
                     protocol = URLProtocol.HTTPS
                     host = "naveropenapi.apigw.ntruss.com"
                     encodedPath = "/map-geocode/v2/geocode"
                     parameters.apply {
-                        append("query", query)
-                        coordinate?.let { append("coordinate", coordinate) }
-                        filter?.let { append("filter", filter) }
-                        page?.let { append("page", page.toString()) }
-                        count?.let { append("count", count.toString()) }
+                        geocodeRequest.let { request ->
+                            append("query", request.query)
+                            appendOrNone("coordinate", request.coordinate)
+                            appendOrNone("filter", request.filter)
+                            appendOrNone("page", request.page)
+                            appendOrNone("count", request.count)
+                        }
                     }
                 }
             }
         }
+
+    private fun ParametersBuilder.appendOrNone(name: String, value: String?) {
+        value?.let { append(name, value) }
+    }
+
+    private fun ParametersBuilder.appendOrNone(name: String, value: Long?) {
+        value?.let { append(name, value.toString()) }
+    }
 }

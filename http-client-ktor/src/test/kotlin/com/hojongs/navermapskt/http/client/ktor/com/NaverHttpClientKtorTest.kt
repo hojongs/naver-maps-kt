@@ -1,6 +1,7 @@
 package com.hojongs.navermapskt.http.client.ktor.com
 
 import com.hojongs.navermapskt.Geocode
+import com.hojongs.navermapskt.GeocodeRequest
 import com.hojongs.navermapskt.NaverClientConfig
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.spec.style.ShouldSpec
@@ -16,9 +17,7 @@ internal class NaverHttpClientKtorTest : ShouldSpec({
         )
         val client = NaverHttpClientKtor(config)
 
-        val geocode = client.geocode(
-            "분당구 불정로 6",
-        )
+        val geocode = client.geocode(GeocodeRequest("분당구 불정로 6"))
 
         geocode.status shouldBe "OK"
         geocode.addresses?.get(0)?.roadAddress shouldBe "경기도 성남시 분당구 불정로 6 NAVER그린팩토리"

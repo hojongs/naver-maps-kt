@@ -1,6 +1,7 @@
 package com.hojongs.navermapskt.http
 
 import com.hojongs.navermapskt.Geocode
+import com.hojongs.navermapskt.GeocodeRequest
 import com.hojongs.navermapskt.NaverClientConfig
 
 abstract class NaverHttpClient {
@@ -18,11 +19,5 @@ abstract class NaverHttpClient {
      *
      * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsgeocoding-geocode
      */
-    abstract suspend fun geocode(
-        query: String,
-        coordinate: String? = null,
-        filter: String? = null,
-        page: Long? = null,
-        count: Long? = null,
-    ): Geocode
+    abstract suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode
 }
