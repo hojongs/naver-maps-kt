@@ -37,6 +37,7 @@ class NaverHttpClientKtor(
                 }
                 header("X-NCP-APIGW-API-KEY-ID", naverClientConfig.clientId)
                 header("X-NCP-APIGW-API-KEY", naverClientConfig.clientSecret)
+                accept(ContentType.Application.Json)
             }
         }
 
