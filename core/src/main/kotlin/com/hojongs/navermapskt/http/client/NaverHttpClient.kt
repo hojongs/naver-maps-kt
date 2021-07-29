@@ -1,4 +1,4 @@
-package com.hojongs.navermapskt.http
+package com.hojongs.navermapskt.http.client
 
 import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest

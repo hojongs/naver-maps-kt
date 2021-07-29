@@ -1,4 +1,4 @@
-package com.hojongs.navermapskt.http.client.ktor.com
+package com.hojongs.navermapskt.http.client.ktor
 
 import com.hojongs.navermapskt.NaverClientConfig
 import com.hojongs.navermapskt.geocode.Geocode
