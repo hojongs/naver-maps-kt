@@ -5,6 +5,7 @@ import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.http.NaverHttpClient
 import com.hojongs.navermapskt.NaverClientConfig
 import io.ktor.client.*
+import io.ktor.client.engine.cio.*
 import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
@@ -15,9 +16,8 @@ import io.ktor.http.*
 class NaverHttpClientKtor(
     override val naverClientConfig: NaverClientConfig,
 ) : NaverHttpClient() {
-    //    private val ktorClient = HttpClient(CIO)
     private val ktorClient =
-        HttpClient() {
+        HttpClient(CIO) {
             install(Logging) {
                 logger = Logger.DEFAULT
                 level = LogLevel.INFO
