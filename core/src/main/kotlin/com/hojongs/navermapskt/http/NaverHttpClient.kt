@@ -2,10 +2,13 @@ package com.hojongs.navermapskt.http
 
 import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest
-import com.hojongs.navermapskt.NaverClientConfig
 
-abstract class NaverHttpClient {
-    protected abstract val naverClientConfig: NaverClientConfig
+/**
+ * HTTP Client for Naver Maps REST API
+ *
+ * @see com.hojongs.navermapskt.NaverClientConfig
+ */
+interface NaverHttpClient {
 
     /**
      * Method: GET
@@ -19,5 +22,5 @@ abstract class NaverHttpClient {
      *
      * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsgeocoding-geocode
      */
-    abstract suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode
+    suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode
 }
