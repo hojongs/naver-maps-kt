@@ -66,6 +66,22 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
         }
     }
 
+    describe("reverseGeocode") {
+        it("return correct response") {
+            val config = NaverClientConfig(
+                System.getenv("NAVER_MAPS_CLIENT_ID"),
+                System.getenv("NAVER_MAPS_CLIENT_SECRET"),
+            )
+            val client = NaverHttpClientKtor(config)
+
+            val reverseGcResponse = client.reverseGeocode(
+                ReverseGCRequest("129.1133567", "35.2982640", output = ReverseGCRequest.Output.JSON)
+            )
+
+            print(reverseGcResponse)
+        }
+    }
+
     describe("json") {
         it("success decoding json") {
             // given
