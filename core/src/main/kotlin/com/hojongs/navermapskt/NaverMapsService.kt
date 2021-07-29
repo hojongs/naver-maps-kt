@@ -1,5 +1,6 @@
 package com.hojongs.navermapskt
 
+import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.http.NaverHttpClient
 
 class NaverMapsService(

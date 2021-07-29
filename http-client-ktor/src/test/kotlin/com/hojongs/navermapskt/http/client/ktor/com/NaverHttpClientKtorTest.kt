@@ -1,7 +1,7 @@
 package com.hojongs.navermapskt.http.client.ktor.com
 
-import com.hojongs.navermapskt.Geocode
-import com.hojongs.navermapskt.GeocodeRequest
+import com.hojongs.navermapskt.geocode.Geocode
+import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.NaverClientConfig
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.spec.style.ShouldSpec

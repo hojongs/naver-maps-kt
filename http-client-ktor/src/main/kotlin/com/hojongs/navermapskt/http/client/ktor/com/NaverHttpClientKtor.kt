@@ -1,7 +1,7 @@
 package com.hojongs.navermapskt.http.client.ktor.com
 
-import com.hojongs.navermapskt.Geocode
-import com.hojongs.navermapskt.GeocodeRequest
+import com.hojongs.navermapskt.geocode.Geocode
+import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.http.NaverHttpClient
 import com.hojongs.navermapskt.NaverClientConfig
 import io.ktor.client.*
@@ -11,7 +11,6 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.util.*
 
 class NaverHttpClientKtor(
     override val naverClientConfig: NaverClientConfig,

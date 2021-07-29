@@ -1,4 +1,4 @@
-package com.hojongs.navermapskt
+package com.hojongs.navermapskt.geocode
 
 import kotlinx.serialization.Serializable
 

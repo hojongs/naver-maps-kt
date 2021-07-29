@@ -1,4 +1,4 @@
-package com.hojongs.navermapskt
+package com.hojongs.navermapskt.geocode
 
 data class GeocodeRequest(
     val query: String,
