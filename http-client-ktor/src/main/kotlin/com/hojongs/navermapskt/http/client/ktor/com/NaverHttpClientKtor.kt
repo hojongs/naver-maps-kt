@@ -1,24 +1,17 @@
 package com.hojongs.navermapskt.http.client.ktor.com
 
+import com.hojongs.navermapskt.NaverClientConfig
 import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.http.NaverHttpClient
-import com.hojongs.navermapskt.NaverClientConfig
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.features.defaultRequest
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.DEFAULT
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logger
-import io.ktor.client.features.logging.Logging
-import io.ktor.client.request.header
-import io.ktor.client.request.request
-import io.ktor.http.HttpMethod.Companion.Get
-import io.ktor.http.ParametersBuilder
-import io.ktor.http.URLProtocol.Companion.HTTPS
-import kotlinx.serialization.json.Json
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.features.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.client.request.*
+import io.ktor.http.*
 
 class NaverHttpClientKtor(
     private val naverClientConfig: NaverClientConfig,
@@ -30,7 +23,7 @@ class NaverHttpClientKtor(
                 level = LogLevel.INFO
             }
             install(JsonFeature) {
-                serializer = KotlinxSerializer(Json {
+                serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
                     prettyPrint = true
                 })
             }
@@ -43,9 +36,9 @@ class NaverHttpClientKtor(
     override suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode =
         ktorClient.use { client ->
             client.request {
-                method = Get
+                method = HttpMethod.Get
                 url {
-                    protocol = HTTPS
+                    protocol = URLProtocol.HTTPS
                     host = "naveropenapi.apigw.ntruss.com"
                     encodedPath = "/map-geocode/v2/geocode"
                     parameters.apply {
