@@ -2,6 +2,8 @@ package com.hojongs.navermapskt.http.client
 
 import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest
+import com.hojongs.navermapskt.reversegc.ReverseGCRequest
+import com.hojongs.navermapskt.reversegc.ReverseGCResponse
 
 /**
  * HTTP Client for Naver Maps REST API
@@ -20,7 +22,17 @@ interface NaverHttpClient {
      * - page: number
      * - count: number
      *
-     * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsgeocoding-geocode
+     * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsgeocoding
      */
     suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode
+
+    /**
+     * Method: GET
+     * URL: https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc
+     * Query Params
+     * - ...
+     *
+     * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsreversegeocoding
+     */
+    suspend fun reverseGeocode(reverseGcRequest: ReverseGCRequest): ReverseGCResponse
 }
