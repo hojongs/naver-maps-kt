@@ -1,0 +1,59 @@
+package com.hojongs.navermapskt.http.client.ktor.com
+
+import com.hojongs.navermapskt.Geocode
+import com.hojongs.navermapskt.http.NaverHttpClient
+import com.hojongs.navermapskt.NaverClientConfig
+import io.ktor.client.*
+import io.ktor.client.features.*
+import io.ktor.client.features.json.*
+import io.ktor.client.features.json.serializer.*
+import io.ktor.client.features.logging.*
+import io.ktor.client.request.*
+import io.ktor.http.*
+import io.ktor.util.*
+
+class NaverHttpClientKtor(
+    override val naverClientConfig: NaverClientConfig,
+) : NaverHttpClient() {
+    //    private val ktorClient = HttpClient(CIO)
+    private val ktorClient = HttpClient() {
+        install(Logging) {
+            logger = Logger.DEFAULT
+            level = LogLevel.ALL
+        }
+        install(JsonFeature) {
+            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
+                prettyPrint = true
+            })
+        }
+        defaultRequest {
+            header("X-NCP-APIGW-API-KEY-ID", naverClientConfig.clientId)
+            header("X-NCP-APIGW-API-KEY", naverClientConfig.clientSecret)
+        }
+    }
+
+    override suspend fun geocode(
+        query: String,
+        coordinate: String?,
+        filter: String?,
+        page: Long?,
+        count: Long?
+    ): Geocode =
+        ktorClient.use {
+            it.request {
+                method = HttpMethod.Get
+                url {
+                    protocol = URLProtocol.HTTPS
+                    host = "naveropenapi.apigw.ntruss.com"
+                    encodedPath = "/map-geocode/v2/geocode"
+                    parameters.apply {
+                        append("query", query)
+                        coordinate?.let { append("coordinate", coordinate) }
+                        filter?.let { append("filter", filter) }
+                        page?.let { append("page", page.toString()) }
+                        count?.let { append("count", count.toString()) }
+                    }
+                }
+            }
+        }
+}
