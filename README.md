@@ -4,18 +4,21 @@ Naver Maps API SDK for Kotlin/JVM
 
 ## TODO
 
-- Add NaverMapsServiceTest
-- Add detekt / ktlint-gradle-plugin
 - Add Getting Started Guide
 - Publish Package to Maven Repository
-- Add Github Action for CI/CD
-- Implement more REST APIs
-  - Static Map
-  - Directions
-  - Reverse Geocoding
-  - https://www.ncloud.com/product/applicationService/maps
-- Refactoring Gradle build script
-- Add exceptions
+- Features
+  - Implement more REST APIs
+    - Static Map
+    - Directions
+    - Reverse Geocoding
+    - https://www.ncloud.com/product/applicationService/maps
+  - Add exceptions
+  - Add NaverMapsServiceTest
+- Build environment
+  - Add ktlint-gradle-plugin
+  - Add Github Action for CI/CD
+  - Test Coverage with Jacoco
+  - Refactoring Gradle build script
 
 # Used libraries
 
