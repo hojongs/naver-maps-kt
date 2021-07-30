@@ -2,6 +2,14 @@
 
 Naver Maps API SDK for Kotlin/JVM
 
+## Getting Started
+
+TBD
+
+## Caution
+
+If 403 Forbidden error occurs, please check the API is enabled in your console.
+
 ## TODO
 
 - Add Getting Started Guide
