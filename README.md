@@ -4,7 +4,23 @@ Naver Maps API SDK for Kotlin/JVM
 
 ## Getting Started
 
-TBD
+```kotlin
+val config = NaverClientConfig(
+    System.getenv("NAVER_MAPS_CLIENT_ID"),
+    System.getenv("NAVER_MAPS_CLIENT_SECRET"),
+)
+val client = NaverHttpClientKtor(config)
+val naverMapsService = NaverMapsService(client)
+
+val geocode = client.geocode(GeocodeRequest("분당구 불정로 6"))
+val reverseGcResponse = client.reverseGeocode(
+    ReverseGCRequest(
+        "129.1133567",
+        "35.2982640",
+        output = ReverseGCRequest.Output.JSON,
+    )
+)
+```
 
 ## Caution
 
