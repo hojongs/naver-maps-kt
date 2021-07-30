@@ -15,11 +15,9 @@ If 403 Forbidden error occurs, please check the API is enabled in your console.
 - Add Getting Started Guide
 - Publish Package to Maven Repository
 - Features
-  - Implement more REST APIs
+  - Implement more [REST APIs](https://www.ncloud.com/product/applicationService/maps)
     - Static Map
     - Directions
-    - Reverse Geocoding
-    - https://www.ncloud.com/product/applicationService/maps
   - Add exception classes
 - Build environment
   - Add GitHub Action for CI/CD

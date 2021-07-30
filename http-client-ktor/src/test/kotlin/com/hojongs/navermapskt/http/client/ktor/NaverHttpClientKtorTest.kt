@@ -75,10 +75,19 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
             val client = NaverHttpClientKtor(config)
 
             val reverseGcResponse = client.reverseGeocode(
-                ReverseGCRequest("129.1133567", "35.2982640", output = ReverseGCRequest.Output.JSON)
+                ReverseGCRequest(
+                    "129.1133567",
+                    "35.2982640",
+                    output = ReverseGCRequest.Output.JSON,
+                )
             )
 
-            print(reverseGcResponse)
+            reverseGcResponse.status.name shouldBe "ok"
+            reverseGcResponse.results[0].let {
+                it.name shouldBe "legalcode"
+                it.region.area1.name shouldBe "부산광역시"
+            }
+            reverseGcResponse.results[1].name shouldBe "admcode"
         }
     }
 
