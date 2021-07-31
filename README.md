@@ -1,6 +1,6 @@
 # Naver Maps Kt
 
-Naver Maps API SDK for Kotlin/JVM
+Naver Maps API SDK for Kotlin/JVM, Java, Android written by Kotlin
 
 ## Getting Started
 
@@ -22,14 +22,31 @@ val reverseGcResponse = client.reverseGeocode(
 )
 ```
 
+## How to install package
+
+```kotlin
+val githubToken: String = System.getenv("GITHUB_TOKEN")
+
+repositories {
+    maven {
+        name = "GitHubPackages"
+        setUrl("https://maven.pkg.github.com/hojongs/naver-maps-kt")
+        credentials {
+            username = "hojongs" // your GitHub username
+            password = githubToken // your Personal Access Token with enough permissions
+        }
+    }
+}
+```
+
+For more information about installing package from Github Package Registry, please refer https://docs.github.com/en/packages/learn-github-packages/installing-a-package
+
 ## Caution
 
 If 403 Forbidden error occurs, please check the API is enabled in your console.
 
 ## TODO
 
-- Add Getting Started Guide
-- Publish Package to Maven Repository
 - Features
   - Implement more [REST APIs](https://www.ncloud.com/product/applicationService/maps)
     - Static Map
@@ -40,10 +57,11 @@ If 403 Forbidden error occurs, please check the API is enabled in your console.
   - Test Coverage with Jacoco
   - Refactoring Gradle build script
 
-# Used libraries
+# Dependencies
 
+- Kotlin 1.5.21
 - Logging : [Logback](https://github.com/qos-ch/logback)
-- HTTP Client : [ktor](https://ktor.io/)
+- HTTP Client : [ktor](https://ktor.io/), [Coroutines](https://github.com/Kotlin/kotlinx.coroutines)
 - JSON (De)Serialization : [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
 - Test Framework
   - [kotest](https://kotest.io/)

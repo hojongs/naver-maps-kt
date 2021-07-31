@@ -2,6 +2,8 @@ plugins {
     kotlin("jvm") version "1.5.21"
 }
 
+val githubToken: String = System.getenv("GITHUB_TOKEN")
+
 group = "com.hojongs"
 version = "0.1"
 
@@ -10,8 +12,11 @@ repositories {
     maven {
         name = "GitHubPackages"
         setUrl("https://maven.pkg.github.com/hojongs/naver-maps-kt")
+        credentials {
+            username = "hojongs"
+            password = githubToken
+        }
     }
-    mavenLocal()
 }
 
 dependencies {
