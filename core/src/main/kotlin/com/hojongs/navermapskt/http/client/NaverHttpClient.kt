@@ -39,4 +39,11 @@ interface NaverHttpClient {
      * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsreversegeocoding
      */
     suspend fun reverseGeocode(reverseGcRequest: ReverseGCRequest): ReverseGCResponse
+
+    /**
+     * Free up the resources
+     *
+     * You need to call it after you finish working with the HTTP client
+     */
+    fun close()
 }

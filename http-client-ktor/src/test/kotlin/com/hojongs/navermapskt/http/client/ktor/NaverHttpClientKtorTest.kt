@@ -7,6 +7,7 @@ import com.hojongs.navermapskt.reversegc.ReverseGCRequest
 import io.kotest.assertions.throwables.*
 import io.kotest.core.spec.style.*
 import io.kotest.matchers.*
+import io.kotest.matchers.reflection.*
 import io.kotest.mpp.*
 import io.ktor.client.features.*
 import io.ktor.http.*
@@ -14,14 +15,18 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 internal class NaverHttpClientKtorTest : DescribeSpec({
+    val config = NaverClientConfig(
+        System.getenv("NAVER_MAPS_CLIENT_ID"),
+        System.getenv("NAVER_MAPS_CLIENT_SECRET"),
+    )
+    val client = NaverHttpClientKtor(config)
+
+    afterSpec {
+        client.close()
+    }
+
     describe("geocode") {
         it("return correct geocode with status OK") {
-            val config = NaverClientConfig(
-                System.getenv("NAVER_MAPS_CLIENT_ID"),
-                System.getenv("NAVER_MAPS_CLIENT_SECRET"),
-            )
-            val client = NaverHttpClientKtor(config)
-
             val geocode = client.geocode(GeocodeRequest("분당구 불정로 6"))
 
             geocode.status shouldBe "OK"

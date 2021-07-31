@@ -36,7 +36,6 @@ class NaverHttpClientKtor(
                 })
             }
             defaultRequest {
-                method = HttpMethod.Get
                 host = "naveropenapi.apigw.ntruss.com"
                 url {
                     protocol = URLProtocol.HTTPS
@@ -48,28 +47,28 @@ class NaverHttpClientKtor(
         }
 
     override suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode =
-        ktorClient.use { client ->
-            client.request {
-                url.encodedPath = "/map-geocode/v2/geocode"
-                parameter("query", geocodeRequest.query)
-                parameter("coordinate", geocodeRequest.coordinate)
-                parameter("filter", geocodeRequest.filter)
-                parameter("page", geocodeRequest.page)
-                parameter("count", geocodeRequest.count)
-            }
+        ktorClient.get {
+            url.encodedPath = "/map-geocode/v2/geocode"
+            parameter("query", geocodeRequest.query)
+            parameter("coordinate", geocodeRequest.coordinate)
+            parameter("filter", geocodeRequest.filter)
+            parameter("page", geocodeRequest.page)
+            parameter("count", geocodeRequest.count)
         }
 
     override suspend fun reverseGeocode(reverseGcRequest: ReverseGCRequest): ReverseGCResponse =
-        ktorClient.use { client ->
-            client.request {
-                url.encodedPath = "/map-reversegeocode/v2/gc"
-                parameter("request", reverseGcRequest.request.paramString)
-                parameter("coords", "${reverseGcRequest.coordsX},${reverseGcRequest.coordsY}")
-                parameter("sourcecrs", reverseGcRequest.sourcecrs.paramString)
-                parameter("targetcrs", reverseGcRequest.targetcrs.paramString)
-                parameter("orders", reverseGcRequest.ordersParamString())
-                parameter("output", reverseGcRequest.output.paramString)
-                parameter("callback", reverseGcRequest.callback)
-            }
+        ktorClient.get {
+            url.encodedPath = "/map-reversegeocode/v2/gc"
+            parameter("request", reverseGcRequest.request.paramString)
+            parameter("coords", "${reverseGcRequest.coordsX},${reverseGcRequest.coordsY}")
+            parameter("sourcecrs", reverseGcRequest.sourcecrs.paramString)
+            parameter("targetcrs", reverseGcRequest.targetcrs.paramString)
+            parameter("orders", reverseGcRequest.ordersParamString())
+            parameter("output", reverseGcRequest.output.paramString)
+            parameter("callback", reverseGcRequest.callback)
         }
+
+    override fun close() {
+        ktorClient.close()
+    }
 }
