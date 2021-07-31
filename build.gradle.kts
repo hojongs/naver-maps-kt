@@ -4,12 +4,15 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.5.21"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.5.21"
     id("io.gitlab.arturbosch.detekt") version ("1.17.1")
+    id("maven-publish")
 }
 
-group = "com.hojongs.navermapskt"
-version = "0.1"
+val githubToken: String = System.getenv("GITHUB_TOKEN")
 
 allprojects {
+    group = "com.hojongs"
+    version = "0.1"
+
     repositories {
         mavenCentral()
     }
@@ -22,6 +25,7 @@ subprojects {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("org.jetbrains.kotlin.plugin.serialization")
         plugin("io.gitlab.arturbosch.detekt")
+        plugin("maven-publish")
     }
 
     dependencies {
@@ -49,6 +53,31 @@ subprojects {
         withType<JavaCompile>().configureEach {
             options.isFork = true
             options.setIncremental(true) // default
+        }
+    }
+
+    java {
+        withSourcesJar()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                setUrl("https://maven.pkg.github.com/hojongs/naver-maps-kt")
+                credentials {
+                    username = "hojongs"
+                    password = githubToken
+                }
+            }
+        }
+
+        publications {
+            create<MavenPublication>("gpr") {
+                artifactId = "naver-maps-kt-$artifactId"
+
+                from(components["java"])
+            }
         }
     }
 }
