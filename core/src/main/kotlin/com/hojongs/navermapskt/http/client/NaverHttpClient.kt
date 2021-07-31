@@ -14,7 +14,9 @@ interface NaverHttpClient {
 
     /**
      * Method: GET
+     *
      * URL: https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode
+     *
      * Query Params
      * - query: string (Required)
      * - coordinate: string
@@ -28,7 +30,9 @@ interface NaverHttpClient {
 
     /**
      * Method: GET
+     *
      * URL: https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc
+     *
      * Query Params
      * - ...
      *
