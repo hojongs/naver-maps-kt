@@ -15,14 +15,20 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 
+/**
+ * implementation of [NaverHttpClient] with Ktor
+ *
+ * @property logLevel value of [LogLevel]
+ */
 class NaverHttpClientKtor(
     private val naverClientConfig: NaverClientConfig,
+    private val logLevel: String = "NONE",
 ) : NaverHttpClient {
     private val ktorClient =
         HttpClient(CIO) {
             install(Logging) {
                 logger = Logger.DEFAULT
-                level = LogLevel.INFO
+                level = LogLevel.valueOf(logLevel)
             }
             install(JsonFeature) {
                 serializer = KotlinxSerializer(kotlinx.serialization.json.Json {

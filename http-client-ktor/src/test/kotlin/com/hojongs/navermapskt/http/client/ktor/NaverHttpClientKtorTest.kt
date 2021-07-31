@@ -7,6 +7,7 @@ import com.hojongs.navermapskt.reversegc.ReverseGCRequest
 import io.kotest.assertions.throwables.*
 import io.kotest.core.spec.style.*
 import io.kotest.matchers.*
+import io.kotest.mpp.*
 import io.ktor.client.features.*
 import io.ktor.http.*
 import kotlinx.serialization.decodeFromString
@@ -101,6 +102,24 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
 
             shouldNotThrow<Throwable> {
                 Json.decodeFromString<Geocode>(str)
+            }
+        }
+    }
+
+    describe("logLevel") {
+        listOf(
+            "ALL",
+            "HEADERS",
+            "BODY",
+            "INFO",
+            "NONE",
+        ).forEach { logLevel ->
+            it("$logLevel: should work as logLevel") {
+                val config = NaverClientConfig("", "")
+
+                shouldNotThrow<IllegalArgumentException> {
+                    NaverHttpClientKtor(config, logLevel)
+                }
             }
         }
     }
