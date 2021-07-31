@@ -2,7 +2,7 @@ val ktorVersion = "1.6.1"
 val logbackVersion = "1.2.5"
 
 dependencies {
-    implementation(project(":core"))
+    implementation("com.hojongs:naver-maps-kt-core:$version")
 
     implementation("io.ktor:ktor-client-core:$ktorVersion")
 
