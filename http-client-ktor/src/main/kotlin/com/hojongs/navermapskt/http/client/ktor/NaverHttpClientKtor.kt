@@ -47,25 +47,35 @@ class NaverHttpClientKtor(
         }
 
     override suspend fun geocode(geocodeRequest: GeocodeRequest): Geocode =
-        ktorClient.get {
-            url.encodedPath = "/map-geocode/v2/geocode"
-            parameter("query", geocodeRequest.query)
-            parameter("coordinate", geocodeRequest.coordinate)
-            parameter("filter", geocodeRequest.filter)
-            parameter("page", geocodeRequest.page)
-            parameter("count", geocodeRequest.count)
-        }
+        get(
+            "/map-geocode/v2/geocode",
+            listOf(
+                "query" to geocodeRequest.query,
+                "coordinate" to geocodeRequest.coordinate,
+                "filter" to geocodeRequest.filter,
+                "page" to geocodeRequest.page,
+                "count" to geocodeRequest.count,
+            )
+        )
 
     override suspend fun reverseGeocode(reverseGcRequest: ReverseGCRequest): ReverseGCResponse =
+        get(
+            "/map-reversegeocode/v2/gc",
+            listOf(
+                "request" to reverseGcRequest.request.paramString,
+                "coords" to "${reverseGcRequest.coordsX},${reverseGcRequest.coordsY}",
+                "sourcecrs" to reverseGcRequest.sourcecrs.paramString,
+                "targetcrs" to reverseGcRequest.targetcrs.paramString,
+                "orders" to reverseGcRequest.ordersParamString(),
+                "output" to reverseGcRequest.output.paramString,
+                "callback" to reverseGcRequest.callback,
+            )
+        )
+
+    private suspend inline fun <reified T> get(encodedPath: String, params: List<Pair<String, Any?>>): T =
         ktorClient.get {
-            url.encodedPath = "/map-reversegeocode/v2/gc"
-            parameter("request", reverseGcRequest.request.paramString)
-            parameter("coords", "${reverseGcRequest.coordsX},${reverseGcRequest.coordsY}")
-            parameter("sourcecrs", reverseGcRequest.sourcecrs.paramString)
-            parameter("targetcrs", reverseGcRequest.targetcrs.paramString)
-            parameter("orders", reverseGcRequest.ordersParamString())
-            parameter("output", reverseGcRequest.output.paramString)
-            parameter("callback", reverseGcRequest.callback)
+            url.encodedPath = encodedPath
+            params.forEach { (k, v) -> parameter(k, v) }
         }
 
     override fun close() {
