@@ -63,12 +63,12 @@ class NaverHttpClientKtor(
         get(
             "/map-reversegeocode/v2/gc",
             listOf(
-                "request" to reverseGcRequest.request.paramString,
+                "request" to reverseGcRequest.request.paramValue,
                 "coords" to "${reverseGcRequest.coordsX},${reverseGcRequest.coordsY}",
-                "sourcecrs" to reverseGcRequest.sourcecrs.paramString,
-                "targetcrs" to reverseGcRequest.targetcrs.paramString,
-                "orders" to reverseGcRequest.ordersParamString(),
-                "output" to reverseGcRequest.output.paramString,
+                "sourcecrs" to reverseGcRequest.sourcecrs.paramValue,
+                "targetcrs" to reverseGcRequest.targetcrs.paramValue,
+                "orders" to reverseGcRequest.ordersParamValue(),
+                "output" to reverseGcRequest.output.paramValue,
                 "callback" to reverseGcRequest.callback,
             )
         )

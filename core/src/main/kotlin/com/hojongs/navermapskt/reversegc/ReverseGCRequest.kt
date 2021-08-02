@@ -13,27 +13,27 @@ data class ReverseGCRequest(
     val output: Output = Output.XML,
     val callback: String? = null,
 ) {
-    fun ordersParamString() = orders.joinToString(",") { it.paramString }
+    fun ordersParamValue(): String = orders.joinToString(",") { it.paramValue }
 
-    enum class Request(val paramString: String) {
+    enum class Request(val paramValue: String) {
         COORDS_TO_ADDR("coordsToaddr")
     }
 
-    enum class Crs(val paramString: String) {
+    enum class Crs(val paramValue: String) {
         EPSG4326("epsg:4326"),
         EPSG3857("epsg:3857"),
         NHN2048("nhn:2048"),
         NHN128("nhn:128"),
     }
 
-    enum class Order(val paramString: String) {
+    enum class Order(val paramValue: String) {
         LEGALCODE("legalcode"),
         ADMCODE("admcode"),
         ADDR("addr"),
         ROADADDR("roadaddr"),
     }
 
-    enum class Output(val paramString: String) {
+    enum class Output(val paramValue: String) {
         JSON("json"),
         XML("xml"),
     }
