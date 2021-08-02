@@ -6,6 +6,7 @@ import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.http.client.NaverHttpClient
 import com.hojongs.navermapskt.reversegc.ReverseGCRequest
 import com.hojongs.navermapskt.reversegc.ReverseGCResponse
+import com.hojongs.navermapskt.staticmap.StaticMapRequest
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.features.*
@@ -72,10 +73,37 @@ class NaverHttpClientKtor(
             )
         )
 
+    override suspend fun staticMap(staticMapRequest: StaticMapRequest): ByteArray =
+        get(
+            "/map-static/v2/raster",
+            listOf(
+                "crs" to staticMapRequest.crs.paramValue,
+                "w" to staticMapRequest.w,
+                "h" to staticMapRequest.h,
+                "maptype" to staticMapRequest.mapType.paramValue,
+                "format" to staticMapRequest.format.paramValue,
+                "scale" to staticMapRequest.scale.paramValue,
+                "lang" to staticMapRequest.lang.paramValue,
+                "public_transit" to staticMapRequest.publicTransit,
+                "dataversion" to staticMapRequest.dataversion,
+            ) + staticMapRequest.centerOrMarkers.toParamList()
+        )
+
     private suspend inline fun <reified T> get(encodedPath: String, params: List<Pair<String, Any?>>): T =
         ktorClient.get {
             url.encodedPath = encodedPath
             params.forEach { (k, v) -> parameter(k, v) }
+        }
+
+    private fun StaticMapRequest.CenterOrMarkers.toParamList() =
+        when (this) {
+            is StaticMapRequest.CenterOrMarkers.Center ->
+                listOf(
+                    "center" to this.center,
+                    "level" to this.level,
+                )
+            is StaticMapRequest.CenterOrMarkers.Markers ->
+                listOf("markers" to this.markers)
         }
 
     override fun close() {

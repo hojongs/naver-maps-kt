@@ -4,6 +4,7 @@ import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.reversegc.ReverseGCRequest
 import com.hojongs.navermapskt.reversegc.ReverseGCResponse
+import com.hojongs.navermapskt.staticmap.StaticMapRequest
 
 /**
  * HTTP Client for Naver Maps REST API
@@ -39,6 +40,8 @@ interface NaverHttpClient {
      * For more information, please refer https://api.ncloud-docs.com/docs/ai-naver-mapsreversegeocoding
      */
     suspend fun reverseGeocode(reverseGcRequest: ReverseGCRequest): ReverseGCResponse
+
+    suspend fun staticMap(staticMapRequest: StaticMapRequest): ByteArray
 
     /**
      * Free up the resources
