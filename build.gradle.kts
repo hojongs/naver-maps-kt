@@ -11,7 +11,7 @@ val githubToken: String = System.getenv("GITHUB_TOKEN")
 
 allprojects {
     group = "com.hojongs"
-    version = "0.2"
+    version = "0.2.1"
 
     repositories {
         mavenCentral()
