@@ -5,10 +5,10 @@ package com.hojongs.navermapskt.staticmap
  * @param h 1~1024
  */
 data class StaticMapRequest(
-    val crs: Crs = Crs.EPSG4326,
-    val centerOrMarkers: CenterOrMarkers,
     val w: Int,
     val h: Int,
+    val centerOrMarkers: CenterOrMarkers,
+    val crs: Crs = Crs.EPSG4326,
     val mapType: MapType = MapType.BASIC,
     val format: Format = Format.JPG,
     val scale: Scale = Scale.SCALE1,
