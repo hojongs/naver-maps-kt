@@ -37,6 +37,11 @@ repositories {
         }
     }
 }
+
+dependencies {
+    implementation("com.hojongs:naver-maps-kt-core:0.2")
+    implementation("com.hojongs:naver-maps-kt-http-client-ktor:0.2")
+}
 ```
 
 For more information about installing package from Github Package Registry, please refer https://docs.github.com/en/packages/learn-github-packages/installing-a-package
