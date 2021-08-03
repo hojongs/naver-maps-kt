@@ -4,11 +4,10 @@ import com.hojongs.navermapskt.NaverClientConfig
 import com.hojongs.navermapskt.geocode.Geocode
 import com.hojongs.navermapskt.geocode.GeocodeRequest
 import com.hojongs.navermapskt.reversegc.ReverseGCRequest
+import com.hojongs.navermapskt.staticmap.StaticMapRequest
 import io.kotest.assertions.throwables.*
 import io.kotest.core.spec.style.*
 import io.kotest.matchers.*
-import io.kotest.matchers.reflection.*
-import io.kotest.mpp.*
 import io.ktor.client.features.*
 import io.ktor.http.*
 import kotlinx.serialization.decodeFromString
@@ -57,12 +56,6 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
         }
 
         it("error when query is empty string") {
-            val config = NaverClientConfig(
-                System.getenv("NAVER_MAPS_CLIENT_ID"),
-                System.getenv("NAVER_MAPS_CLIENT_SECRET"),
-            )
-            val client = NaverHttpClientKtor(config)
-
             val geocode = client.geocode(GeocodeRequest(""))
 
             print(geocode)
@@ -74,12 +67,6 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
 
     describe("reverseGeocode") {
         it("return correct response") {
-            val config = NaverClientConfig(
-                System.getenv("NAVER_MAPS_CLIENT_ID"),
-                System.getenv("NAVER_MAPS_CLIENT_SECRET"),
-            )
-            val client = NaverHttpClientKtor(config)
-
             val reverseGcResponse = client.reverseGeocode(
                 ReverseGCRequest(
                     "129.1133567",
@@ -94,6 +81,26 @@ internal class NaverHttpClientKtorTest : DescribeSpec({
                 it.region.area1.name shouldBe "부산광역시"
             }
             reverseGcResponse.results[1].name shouldBe "admcode"
+        }
+    }
+
+    describe("staticMap") {
+        it("return correct png") {
+            val bytes = client.staticMap(
+                StaticMapRequest(
+                    w = 300,
+                    h = 300,
+                    centerOrMarkers = StaticMapRequest.CenterOrMarkers.Center(
+                        center = "127.1054221,37.3591614",
+                        level = 16,
+                    ),
+                )
+            )
+
+            val expected = javaClass
+                .getResource("/staticmap.png")!!
+                .readBytes()
+            bytes shouldBe expected
         }
     }
 
