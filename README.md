@@ -71,3 +71,9 @@ If 403 Forbidden error occurs, please check the API is enabled in your console.
 - Test Framework
   - [kotest](https://kotest.io/)
   - [Mockito-Kotlin](https://github.com/mockito/mockito-kotlin)
+
+## Reference
+
+This repository follows:
+
+- [semver](https://semver.org/)
