@@ -60,17 +60,16 @@ subprojects {
         }
 
         withType<JavaCompile>().configureEach {
-            options.isFork = true
-            options.setIncremental(true) // default
+            options.apply {
+                isFork = true
+                setIncremental(true) // default
+            }
         }
 
         withType<KotlinCompile>().configureEach {
             kotlinOptions {
                 freeCompilerArgs = listOf("-Xjsr305=strict")
             }
-        }
-
-        withType<AbstractCompile>().configureEach {
             sourceCompatibility = "1.8"
             targetCompatibility = "1.8"
         }
