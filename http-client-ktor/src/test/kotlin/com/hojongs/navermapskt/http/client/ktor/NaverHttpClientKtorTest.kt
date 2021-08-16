@@ -14,9 +14,13 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 internal class NaverHttpClientKtorTest : DescribeSpec({
+    fun getEnv(envName: String) =
+        System.getenv(envName)
+            ?: throw Exception("Env variable is required : $envName")
+
     val config = NaverClientConfig(
-        System.getenv("NAVER_MAPS_CLIENT_ID"),
-        System.getenv("NAVER_MAPS_CLIENT_SECRET"),
+        getEnv("NAVER_MAPS_CLIENT_ID"),
+        getEnv("NAVER_MAPS_CLIENT_SECRET"),
     )
     val client = NaverHttpClientKtor(config)
 
