@@ -17,10 +17,13 @@ repositories {
             password = githubToken
         }
     }
+    mavenLocal()
 }
+
+val naverMapsKtVersion = "0.2.2"
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation("com.hojongs:naver-maps-kt-core:0.1")
-    implementation("com.hojongs:naver-maps-kt-http-client-ktor:0.1")
+    implementation("com.hojongs:naver-maps-kt-core:$naverMapsKtVersion")
+    implementation("com.hojongs:naver-maps-kt-http-client-ktor:$naverMapsKtVersion")
 }

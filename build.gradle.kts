@@ -11,7 +11,7 @@ val githubToken: String = System.getenv("GITHUB_TOKEN")
 
 allprojects {
     group = "com.hojongs"
-    version = "0.2.1"
+    version = "0.2.2"
 
     repositories {
         mavenCentral()
@@ -23,6 +23,7 @@ allprojects {
                 password = githubToken
             }
         }
+        mavenLocal()
     }
 }
 
@@ -62,10 +63,22 @@ subprojects {
             options.isFork = true
             options.setIncremental(true) // default
         }
+
+        withType<KotlinCompile>().configureEach {
+            kotlinOptions {
+                freeCompilerArgs = listOf("-Xjsr305=strict")
+            }
+        }
+
+        withType<AbstractCompile>().configureEach {
+            sourceCompatibility = "1.8"
+            targetCompatibility = "1.8"
+        }
     }
 
     java {
         withSourcesJar()
+        withJavadocJar()
     }
 
     publishing {
@@ -85,14 +98,6 @@ subprojects {
                 artifactId = "naver-maps-kt-$artifactId"
 
                 from(components["java"])
-            }
-        }
-    }
-
-    tasks {
-        withType<KotlinCompile> {
-            kotlinOptions {
-                freeCompilerArgs = listOf("-Xjsr305=strict")
             }
         }
     }
